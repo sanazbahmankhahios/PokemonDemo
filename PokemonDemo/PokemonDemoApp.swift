@@ -8,10 +8,15 @@
 import SwiftUI
 
 @main
-struct PokemonDemoApp: App {
+struct PokeDexDemoApp: App {
+    @StateObject private var coordinator = AppCoordinator()
+    @StateObject private var container = DIContainers(service: PokemonService())
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
+         WindowGroup {
+             ContentView()
+                 .environmentObject(coordinator)
+                 .environmentObject(container)
+         }
+     }
+ }
