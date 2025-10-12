@@ -19,4 +19,15 @@ class MockService: PokemonServiceProtocol {
             Pokemon(name: "Meowth", url: URL(string: "https://pokeapi.co/api/v2/pokemon/52/")!)
         ]
     }
+    
+    func fetchPokemonDescription(for pokemon: Pokemon) async throws -> [String] {
+        return [
+            "\(pokemon.name.capitalized) is a starter Pokémon!",
+            "\(pokemon.name.capitalized) can evolve!",
+            "\(pokemon.name.capitalized) has unique abilities!",
+            "\(pokemon.name.capitalized) is popular in battles!",
+            "\(pokemon.name.capitalized) is from Kanto region!",
+            "\(pokemon.name.capitalized) is loved by fans!"
+        ]
+    }
 }
