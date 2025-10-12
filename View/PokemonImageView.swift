@@ -6,13 +6,33 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PokemonImageView: View {
+    let pokemon: Pokemon
+    let height: CGFloat
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        KFImage(PokemonImageHelper.imageURL(for: pokemon))
+            .placeholder {
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: height)
+                    .foregroundColor(.gray)
+            }
+            .resizable()
+            .scaledToFit()
+            .frame(height: height)
     }
 }
 
 #Preview {
-    PokemonImageView()
+    PokemonImageView(
+        pokemon: Pokemon(
+            name: "Bulbasaur",
+            url: URL(string:"https://pokeapi.co/api/v2/pokemon/1/")!
+        ),
+        height: 150
+    )
 }
