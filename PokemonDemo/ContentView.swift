@@ -18,6 +18,12 @@ struct ContentView: View {
                 PokemonListView(viewModel: listViewModel) { selectedPokemon in
                     coordinator.showDetail(for: selectedPokemon)
                 }
+                .navigationDestination(for: Pokemon.self) { pokemon in
+                    PokemonDetailView(viewModel: PokemonDetailViewModel(pokemon: pokemon,
+                                                                        service: container.service)) { pokemon in
+                        listViewModel.update(pokemon: pokemon)
+                    }
+                }
             } else {
                 ProgressView("Loading Pokédex...")
             }
