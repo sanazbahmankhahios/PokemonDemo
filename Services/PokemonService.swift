@@ -9,22 +9,27 @@ import Foundation
 
 protocol PokemonServiceProtocol {
     func fetchPokemonList(limit: Int, offset: Int) async throws -> [Pokemon]
+    func fetchPokemonDescription(for pokemon: Pokemon) async throws -> [String]
 }
 
 final class PokemonService: PokemonServiceProtocol {
+    private let maxDescriptions = 6
     
     /// Source documentation: `https://pokeapi.co/api/v2/pokemon?limit=10&offset=0`
     func fetchPokemonList(limit: Int, offset: Int) async throws -> [Pokemon] {
         guard var components = URLComponents(string: "\(NetworkConstants.baseURL)pokemon") else {
             throw NetworkError.invalidURL
         }
+        
         components.queryItems = [
             URLQueryItem(name: "limit", value: "\(limit)"),
             URLQueryItem(name: "offset", value: "\(offset)")
         ]
+        
         guard let url = components.url else {
             throw NetworkError.invalidURL
         }
+        
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
@@ -32,6 +37,7 @@ final class PokemonService: PokemonServiceProtocol {
             
             let decoded = try JSONDecoder().decode(PokemonResponse.self, from: data)
             return decoded.results
+            
         } catch is DecodingError {
             throw NetworkError.decodingError
         } catch {
@@ -39,11 +45,49 @@ final class PokemonService: PokemonServiceProtocol {
         }
     }
     
+    /// Fetches up to 6 unique English flavor text descriptions for a Pokémon.
+    /// Source documentation:: `https://pokeapi.co/api/v2/pokemon-species/1`
+    func fetchPokemonDescription(for pokemon: Pokemon) async throws -> [String] {
+        guard let baseURL = URL(string: NetworkConstants.baseURL) else {
+            throw NetworkError.invalidURL
+        }
+        
+        let url = baseURL
+            .appendingPathComponent("pokemon-species")
+            .appendingPathComponent("\(pokemon.id)")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            try validateHTTPResponse(response)
+            
+            let species = try JSONDecoder().decode(PokemonSpecies.self, from: data)
+            
+            /// Extracts unique English descriptions, normalizing text by removing line breaks, form feeds, and extra whitespace.
+            let uniqueDescriptions = species.flavor_text_entries
+                .filter { $0.language.name == "en" }
+                .map { cleanDescription($0.flavor_text) }
+                .reduce(into: [String]()) { results, text in
+                    if !results.contains(text) { results.append(text) }
+                }
+            return Array(uniqueDescriptions.prefix(maxDescriptions))
+        } catch is DecodingError {
+            throw NetworkError.decodingError
+        } catch {
+            throw NetworkError.requestFailed
+        }
+    }
+    
     private func validateHTTPResponse(_ response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse,
               (200...299).contains(httpResponse.statusCode) else {
             throw NetworkError.badResponse
-            
         }
+    }
+    
+    private func cleanDescription(_ text: String) -> String {
+        text
+            .replacingOccurrences(of: "\n", with: " ")
+            .replacingOccurrences(of: "\u{0C}", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
