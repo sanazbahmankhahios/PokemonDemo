@@ -36,9 +36,22 @@ struct PokemonDetailView: View {
                 await viewModel.fetchDescription()
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    Task {
+                        await viewModel.toggleFavorite()
+                        onFavorite(viewModel.pokemon)
+                    }
+                } label: {
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .foregroundStyle(viewModel.isFavorite ? .red : .primary)
+                }
+            }
+        }
     }
     
-         @ViewBuilder
+    @ViewBuilder
     private func descriptionView() -> some View {
         if viewModel.isLoading {
             ProgressView("Loading description...")
