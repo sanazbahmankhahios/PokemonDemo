@@ -8,6 +8,7 @@
 import Foundation
 
 class MockService: PokemonServiceProtocol {
+    var shouldFavoriteSucceed = true
     
     func fetchPokemonList(limit: Int, offset: Int) async throws -> [Pokemon] {
         return [
@@ -29,5 +30,11 @@ class MockService: PokemonServiceProtocol {
             "\(pokemon.name.capitalized) is from Kanto region!",
             "\(pokemon.name.capitalized) is loved by fans!"
         ]
+    }
+    
+    func favorite(pokemon: Pokemon) async throws {
+        if !shouldFavoriteSucceed {
+            throw NetworkError.requestFailed
+        }
     }
 }
