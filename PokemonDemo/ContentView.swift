@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var container: DIContainers
+    @EnvironmentObject var coordinator: AppCoordinator
+    @State var listViewModel: PokemonListViewModel? = nil
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $coordinator.path) {
+            if let listViewModel = listViewModel {
+                PokemonListView(viewModel: listViewModel) { selectedPokemon in
+                    coordinator.showDetail(for: selectedPokemon)
+                }
+            } else {
+                ProgressView("Loading Pokédex...")
+            }
         }
-        .padding()
+        .dynamicTypeSize(.medium)
+        .onAppear {
+            if listViewModel == nil {
+                listViewModel = container.makeListViewModel()
+            }
+        }
     }
 }
 
 #Preview {
+    let mockContainer = DIContainers(service: MockService())
+    let appCoordinator = AppCoordinator()
     ContentView()
+        .environmentObject(mockContainer)
+        .environmentObject(appCoordinator)
 }
