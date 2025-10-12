@@ -36,4 +36,17 @@ final class PokemonDetailViewModel: ObservableObject {
             self.descriptions = ["No description available"]
         }
     }
+    
+    func toggleFavorite() async {
+        guard !isProcessing else { return }
+           isProcessing = true
+           defer { isProcessing = false }
+            isFavorite.toggle()
+        do {
+            try await service.favorite(pokemon: pokemon)
+            pokemon.isFavorite = isFavorite
+        } catch {
+            print("Failed to favorite Pokémon: \(error)")
+        }
+    }
 }
