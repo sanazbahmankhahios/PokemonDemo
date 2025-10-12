@@ -91,7 +91,7 @@ final class PokemonService: PokemonServiceProtocol {
             let (_, response) = try await URLSession.shared.data(for: request)
             
             try validateHTTPResponse(response)
-
+            
         } catch is EncodingError {
             throw NetworkError.encodingError
         } catch {
@@ -106,7 +106,7 @@ final class PokemonService: PokemonServiceProtocol {
         }
     }
     
-    private func cleanDescription(_ text: String) -> String {
+    func cleanDescription(_ text: String) -> String {
         text
             .replacingOccurrences(of: "\n", with: " ")
             .replacingOccurrences(of: "\u{0C}", with: " ")
