@@ -14,7 +14,7 @@ struct PokemonCellView: View {
     
     var body: some View {
         VStack {
-            PokemonImageView()
+            PokemonImageView(pokemon: pokemon, height: imageHeight)
             Text(pokemon.name.capitalized)
                 .dynamicTypeSize(.medium)
 
