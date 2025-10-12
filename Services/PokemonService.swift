@@ -10,6 +10,7 @@ import Foundation
 protocol PokemonServiceProtocol {
     func fetchPokemonList(limit: Int, offset: Int) async throws -> [Pokemon]
     func fetchPokemonDescription(for pokemon: Pokemon) async throws -> [String]
+    func favorite(pokemon: Pokemon) async throws
 }
 
 final class PokemonService: PokemonServiceProtocol {
@@ -72,6 +73,27 @@ final class PokemonService: PokemonServiceProtocol {
             return Array(uniqueDescriptions.prefix(maxDescriptions))
         } catch is DecodingError {
             throw NetworkError.decodingError
+        } catch {
+            throw NetworkError.requestFailed
+        }
+    }
+    
+    /// Source documentation: `https://webhook.site/c0865bd5-437a-4972-9d82-1fc16879280f`
+    func favorite(pokemon: Pokemon) async throws {
+        let url = URL(string: "https://webhook.site/c0865bd5-437a-4972-9d82-1fc16879280f")! // swiftlint:disable:this force_unwrapping
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(pokemon)
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            try validateHTTPResponse(response)
+
+        } catch is EncodingError {
+            throw NetworkError.encodingError
         } catch {
             throw NetworkError.requestFailed
         }
