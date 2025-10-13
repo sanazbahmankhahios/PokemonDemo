@@ -5,16 +5,16 @@
 //  Created by sanaz on 10/12/25.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 @MainActor
 final class DIContainers: ObservableObject {
     let service: PokemonServiceProtocol
     
     init(service: PokemonServiceProtocol) {
-            self.service = service
-        }
+        self.service = service
+    }
     
     func makeListViewModel() -> PokemonListViewModel {
         PokemonListViewModel(service: service)

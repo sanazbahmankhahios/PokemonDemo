@@ -44,13 +44,12 @@ struct PokemonGridView: View {
         pokemons: [
             Pokemon(name: "Bulbasaur", url: URL(string: "https://pokeapi.co/api/v2/pokemon/1/")!),
             Pokemon(name: "Charmander", url: URL(string: "https://pokeapi.co/api/v2/pokemon/4/")!),
-            Pokemon(name: "Squirtle", url: URL(string: "https://pokeapi.co/api/v2/pokemon/7/")!)
+            Pokemon(name: "Squirtle", url: URL(string: "https://pokeapi.co/api/v2/pokemon/7/")!),
         ],
         onSelectPokemon: { pokemon in
             print("Tapped on \(pokemon.name)")
         },
         onAppearPokemon: { _ in
-            
         }
     )
 }

@@ -22,7 +22,7 @@ final class PokemonDetailViewModel: ObservableObject {
         self.pokemon = pokemon
         name = pokemon.name.capitalized
         self.service = service
-        self.isFavorite = pokemon.isFavorite
+        isFavorite = pokemon.isFavorite
     }
     
     func fetchDescription() async {
@@ -33,15 +33,15 @@ final class PokemonDetailViewModel: ObservableObject {
             let descriptions = try await service.fetchPokemonDescription(for: pokemon)
             self.descriptions = descriptions.isEmpty ? ["No description available"] : descriptions
         } catch {
-            self.descriptions = ["No description available"]
+            descriptions = ["No description available"]
         }
     }
     
     func toggleFavorite() async {
         guard !isProcessing else { return }
-           isProcessing = true
-           defer { isProcessing = false }
-            isFavorite.toggle()
+        isProcessing = true
+        defer { isProcessing = false }
+        isFavorite.toggle()
         do {
             try await service.favorite(pokemon: pokemon)
             pokemon.isFavorite = isFavorite

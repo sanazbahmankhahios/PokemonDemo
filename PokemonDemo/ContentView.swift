@@ -14,13 +14,14 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            if let listViewModel = listViewModel {
+            if let listViewModel {
                 PokemonListView(viewModel: listViewModel) { selectedPokemon in
                     coordinator.showDetail(for: selectedPokemon)
                 }
                 .navigationDestination(for: Pokemon.self) { pokemon in
                     PokemonDetailView(viewModel: PokemonDetailViewModel(pokemon: pokemon,
-                                                                        service: container.service)) { pokemon in
+                                                                        service: container.service))
+                    { pokemon in
                         listViewModel.update(pokemon: pokemon)
                     }
                 }

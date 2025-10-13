@@ -31,7 +31,6 @@ struct PokemonDetailView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
-            
             .task {
                 await viewModel.fetchDescription()
             }
@@ -58,7 +57,7 @@ struct PokemonDetailView: View {
                 .italic()
                 .foregroundColor(.gray)
         } else {
-            ForEach(Array(viewModel.descriptions.enumerated()), id: \.offset) { _ , description in
+            ForEach(Array(viewModel.descriptions.enumerated()), id: \.offset) { _, description in
                 Text(description)
                     .font(.body)
                     .multilineTextAlignment(.leading)

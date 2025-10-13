@@ -17,15 +17,15 @@ enum NetworkError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "The URL is invalid."
+            "The URL is invalid."
         case .requestFailed:
-            return "Network request failed"
+            "Network request failed"
         case .badResponse:
-            return "Received an unsuccessful response from the server."
+            "Received an unsuccessful response from the server."
         case .decodingError:
-            return "Failed to decode the response."
+            "Failed to decode the response."
         case .encodingError:
-            return "Failed to encode the response."
+            "Failed to encode the response."
         }
     }
 }

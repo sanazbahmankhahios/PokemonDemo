@@ -54,6 +54,5 @@ struct PokemonListView: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     PokemonListView(viewModel: PokemonListViewModel(service: MockService())) { _ in
-        
     }
 }

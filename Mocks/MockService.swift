@@ -10,8 +10,8 @@ import Foundation
 class MockService: PokemonServiceProtocol {
     var shouldFavoriteSucceed = true
     
-    func fetchPokemonList(limit: Int, offset: Int) async throws -> [Pokemon] {
-        return [
+    func fetchPokemonList(limit _: Int, offset _: Int) async throws -> [Pokemon] {
+        [
             Pokemon(name: "Bulbasaur", url: URL(string: "https://pokeapi.co/api/v2/pokemon/1/")!),
             Pokemon(name: "Charmander", url: URL(string: "https://pokeapi.co/api/v2/pokemon/4/")!),
             Pokemon(name: "Squirtle", url: URL(string: "https://pokeapi.co/api/v2/pokemon/7/")!),
@@ -22,17 +22,17 @@ class MockService: PokemonServiceProtocol {
     }
     
     func fetchPokemonDescription(for pokemon: Pokemon) async throws -> [String] {
-        return [
+        [
             "\(pokemon.name.capitalized) is a starter Pokémon!",
             "\(pokemon.name.capitalized) can evolve!",
             "\(pokemon.name.capitalized) has unique abilities!",
             "\(pokemon.name.capitalized) is popular in battles!",
             "\(pokemon.name.capitalized) is from Kanto region!",
-            "\(pokemon.name.capitalized) is loved by fans!"
+            "\(pokemon.name.capitalized) is loved by fans!",
         ]
     }
     
-    func favorite(pokemon: Pokemon) async throws {
+    func favorite(pokemon _: Pokemon) async throws {
         if !shouldFavoriteSucceed {
             throw NetworkError.requestFailed
         }

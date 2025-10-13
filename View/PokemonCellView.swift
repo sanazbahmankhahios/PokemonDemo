@@ -10,14 +10,13 @@ import SwiftUI
 struct PokemonCellView: View {
     private let imageHeight: CGFloat = 100
     let pokemon: Pokemon
-    var onTap: (() -> Void)? = nil
+    var onTap: (() -> Void)?
     
     var body: some View {
         VStack {
             PokemonImageView(pokemon: pokemon, height: imageHeight)
             Text(pokemon.name.capitalized)
                 .dynamicTypeSize(.medium)
-
         }
         .padding(8)
         .background(Color(.secondarySystemBackground))

@@ -5,8 +5,8 @@
 //  Created by sanaz on 10/12/25.
 //
 
-import XCTest
 @testable import PokemonDemo
+import XCTest
 
 @MainActor
 final class PokeDexDemoTests: XCTestCase {
@@ -36,7 +36,6 @@ final class PokeDexDemoTests: XCTestCase {
         XCTAssertEqual(charmander.id, 4)
         let unknown = Pokemon(name: "Unknown", url: URL(string: "https://pokeapi.co/api/v2/pokemon/")!)
         XCTAssertEqual(unknown.id, 0)
-        
     }
     
     func testLoadPokemons() async throws {
@@ -78,7 +77,7 @@ final class PokeDexDemoTests: XCTestCase {
     
     func testFavoritePokemon_Failure() async {
         mockService.shouldFavoriteSucceed = false
-        let pokemon = Pokemon(name: "Pikachu", url: URL(string:"https://pokeapi.co/api/v2/pokemon/25/")!)
+        let pokemon = Pokemon(name: "Pikachu", url: URL(string: "https://pokeapi.co/api/v2/pokemon/25/")!)
         
         do {
             _ = try await container.service.favorite(pokemon: pokemon)

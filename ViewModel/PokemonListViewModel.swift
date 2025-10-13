@@ -23,7 +23,7 @@ class PokemonListViewModel: ObservableObject {
     }
     
     func update(pokemon: Pokemon) {
-        guard let index = pokemons.firstIndex(where: { $0.id == pokemon.id}) else { return }
+        guard let index = pokemons.firstIndex(where: { $0.id == pokemon.id }) else { return }
         pokemons[index] = pokemon
     }
     
@@ -41,7 +41,8 @@ class PokemonListViewModel: ObservableObject {
     func loadMorePokemons(item: Pokemon) async {
         guard isLoading == false else { return }
         guard let index = pokemons.firstIndex(where: { $0.id == item.id }),
-              index + 1 == pokemons.count else {
+              index + 1 == pokemons.count
+        else {
             return
         }
         isLoading = true

@@ -13,5 +13,6 @@ struct PokemonSpecies: Codable {
         let language: Language
         struct Language: Codable { let name: String }
     }
+    
     let flavor_text_entries: [FlavorTextEntry]
 }

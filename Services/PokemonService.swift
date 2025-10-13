@@ -31,7 +31,6 @@ final class PokemonService: PokemonServiceProtocol {
             throw NetworkError.invalidURL
         }
         
-        
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             try validateHTTPResponse(response)
@@ -101,7 +100,8 @@ final class PokemonService: PokemonServiceProtocol {
     
     private func validateHTTPResponse(_ response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
+              (200 ... 299).contains(httpResponse.statusCode)
+        else {
             throw NetworkError.badResponse
         }
     }

@@ -24,6 +24,8 @@
 		B72EE5E92E9C6052006F2B5B /* PokemonSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72EE5E82E9C6052006F2B5B /* PokemonSpecies.swift */; };
 		B72EE5EB2E9C60FD006F2B5B /* PokemonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72EE5EA2E9C60FD006F2B5B /* PokemonDetailViewModel.swift */; };
 		B72EE5ED2E9C6131006F2B5B /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72EE5EC2E9C6131006F2B5B /* PokemonDetailView.swift */; };
+		B72EE6032E9CE10B006F2B5B /* FailingMockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72EE6022E9CE10B006F2B5B /* FailingMockService.swift */; };
+		B72EE6042E9CE10B006F2B5B /* EmptyDescriptionMockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72EE6012E9CE10B006F2B5B /* EmptyDescriptionMockService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		B72EE5E82E9C6052006F2B5B /* PokemonSpecies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSpecies.swift; sourceTree = "<group>"; };
 		B72EE5EA2E9C60FD006F2B5B /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		B72EE5EC2E9C6131006F2B5B /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
+		B72EE6012E9CE10B006F2B5B /* EmptyDescriptionMockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDescriptionMockService.swift; sourceTree = "<group>"; };
+		B72EE6022E9CE10B006F2B5B /* FailingMockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailingMockService.swift; sourceTree = "<group>"; };
 		B7D3F6BC2E9BEB3900259E7D /* PokemonDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D3F6CC2E9BEB3A00259E7D /* PokemonDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D3F6D62E9BEB3A00259E7D /* PokemonDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				B72EE5DD2E9C4BBB006F2B5B /* MockService.swift */,
+				B72EE6012E9CE10B006F2B5B /* EmptyDescriptionMockService.swift */,
+				B72EE6022E9CE10B006F2B5B /* FailingMockService.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -219,6 +225,7 @@
 				B7D3F6B82E9BEB3900259E7D /* Sources */,
 				B7D3F6B92E9BEB3900259E7D /* Frameworks */,
 				B7D3F6BA2E9BEB3900259E7D /* Resources */,
+				B72EE6052E9CE636006F2B5B /* SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -352,6 +359,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B72EE6052E9CE636006F2B5B /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin/swiftformat\"\n\nif which swiftformat >/dev/null; then\n  cd \"${SRCROOT}\" || exit 1\n  swiftformat . --swiftversion 5.9\nelse\n  echo \"warning: SwiftFormat not installed\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B7D3F6B82E9BEB3900259E7D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -373,6 +401,8 @@
 				B72EE5E42E9C4E01006F2B5B /* AppCoordinator.swift in Sources */,
 				B72EE5D92E9C4B3E006F2B5B /* PokemonCellView.swift in Sources */,
 				B72EE5CA2E9C44E5006F2B5B /* NetworkError.swift in Sources */,
+				B72EE6032E9CE10B006F2B5B /* FailingMockService.swift in Sources */,
+				B72EE6042E9CE10B006F2B5B /* EmptyDescriptionMockService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
