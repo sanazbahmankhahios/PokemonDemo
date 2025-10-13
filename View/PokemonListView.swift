@@ -28,9 +28,9 @@ struct PokemonListView: View {
                     }
                 }
             )
+            .padding()
             statusOverlay()
         }
-        .padding()
         .navigationTitle("Pokédex")
         .task {
             await viewModel.loadPokemons()

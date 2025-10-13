@@ -15,7 +15,7 @@ class PokemonListViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var descriptions: [String] = []
     
-    private let limit = 10
+    private let limit = 21
     private let service: PokemonServiceProtocol
     
     init(service: PokemonServiceProtocol) {
