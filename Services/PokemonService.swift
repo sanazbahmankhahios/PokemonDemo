@@ -79,7 +79,7 @@ final class PokemonService: PokemonServiceProtocol {
     
     /// Source documentation: `https://webhook.site/c0865bd5-437a-4972-9d82-1fc16879280f`
     func favorite(pokemon: Pokemon) async throws {
-        let url = URL(string: "https://webhook.site/c0865bd5-437a-4972-9d82-1fc16879280f")! // swiftlint:disable:this force_unwrapping
+        let url = URL(string: "https://webhook.site/e10315c8-a86e-4bf5-ae3e-2a346b97c255")! // swiftlint:disable:this force_unwrapping
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
